@@ -1,6 +1,8 @@
 var user = null;
+var email = null;
 
 function showContent() {
+	document.getElementById('login').textContent = "Fazer LOGOUT de " + email;
 	document.getElementById("content").style.display = 'block';
 }
 
@@ -8,12 +10,12 @@ function hideContent() {
 	document.getElementById("content").style.display = 'none';
 }
 
-function onLogin() {
+function onLogin(user) {
 	console.log('login', user);
 	showContent();
 }
 
-function onLogout() {
+function onLogout(user) {
 	console.log('Logged out');
 	hideContent();
 	netlifyIdentity.open();
@@ -34,7 +36,7 @@ function onNetlifyLoad() {
 	} else {
 		console.log('----- User')
 		console.log(user);
-		document.getElementById('login').textContent = "Fazer LOGOUT!"
+		email = user.email;
 		showContent();
 	}
 }
