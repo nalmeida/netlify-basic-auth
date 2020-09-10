@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="https://unpkg.com/modesto@latest/modesto.min.css">
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👍</text></svg>">
+
+	<script>
+		function onNetlifyLoad() {
+			var user = netlifyIdentity.currentUser();
+			// Bind to events
+			netlifyIdentity.on('init', user => console.log('init', user));
+			netlifyIdentity.on('login', user => console.log('login', user));
+			netlifyIdentity.on('logout', () => console.log('Logged out'));
+			netlifyIdentity.on('error', err => console.error('Error', err));
+			netlifyIdentity.on('open', () => console.log('Widget opened'));
+			netlifyIdentity.on('close', () => console.log('Widget closed'));
+		}
+		function initBasicAuth() {
+			var script = document.createElement('script');
+			script.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
+			script.async = true
+			script.onload = onNetlifyLoad;
+			document.body.appendChild(script);
+		}
+	</script>
+</head>
+<body>
+	<h1>🏠 Home</h1>
+
+	<p>
+		🔐 <a href="#" id="login">Fazer Login</a>
+	</p>
+	<p>
+		🕵️‍♀️ <a href="secret.html">Página somente para usuários logados</a>
+	</p>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			initBasicAuth();
+
+			document.getElementById('login').addEventListener('click', function() {
+				netlifyIdentity.open();
+			})
+		});
+	</script>
+</body>
+</html>
