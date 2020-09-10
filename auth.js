@@ -11,6 +11,7 @@ function hideContent() {
 }
 
 function onLogin(user) {
+	email = user.email;
 	console.log('login', user);
 	showContent();
 }
